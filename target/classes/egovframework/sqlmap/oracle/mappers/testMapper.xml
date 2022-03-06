@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="egovframework.dongin.ivory.service.TestMapper">
+    <select id="selectTest" resultType="egovframework.dongin.ivroy.vo.TestVO">
+        SELECT * FROM test
+        ORDER BY testId DESC
+    </select>
+ 	
+ 	<select id="selectOne" parameterType="Integer" resultType="egovframework.dongin.ivroy.vo.TestVO">
+ 		SELECT * FROM TEST
+ 		WHERE TESTID = #{TESTID}
+ 	</select>
+ 	
+ 	<insert id = "insertTest"  parameterType="egovframework.dongin.ivroy.vo.TestVO">
+		insert into test(testid,testTitle,testContent,testName)
+		values((select NVL(MAX(testId),0)+1 from test),#{testTitle},#{testContent},'admin')
+ 	</insert>
+ 	
+ 	<update id="updateTest" parameterType="egovframework.dongin.ivroy.vo.TestVO">
+ 		UPDATE test
+ 		SET testTitle = #{testTitle}, testContent = #{testContent}
+ 		WHERE testid = #{testId}
+ 	</update>
+ 	
+ 	<delete id = "deleteTest" parameterType="Integer">
+ 		DELETE FROM test
+ 		WHERE testId = #{testId}
+ 	</delete>
+ 	
+</mapper>
